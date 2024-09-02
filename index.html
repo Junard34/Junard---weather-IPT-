@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Update Iligan City</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Weather Forecast Iligan City</h1>
+        <p id="current-date"></p>
+      </header>
+      <div class="weather-info">
+        <div id="day-1" class="weather-day">
+          <h1>MONDAY</h1>
+          <img src="sunny.png" alt="Sunny" />
+          <p>Temperature: --°C</p>
+          <p>Humidity: --%</p>
+        </div>
+
+        <div id="day-2" class="weather-day">
+          <h2>TUESDAY</h2>
+          <img src="rainy.png" alt="Rainy" />
+          <p>Temperature: --°C</p>
+          <p>Humidity: --%</p>
+        </div>
+
+        <div id="day-3" class="weather-day">
+          <h3>WEDNESDAY</h3>
+          <img src="cloudy.png" alt="Cloudy" />
+          <p>Temperature: --°C</p>
+          <p>Humidity: --%</p>
+        </div>
+
+        <div id="day-4" class="weather-day">
+          <h4>THURSDAY</h4>
+          <img src="rainy.png" alt="Rainy" />
+          <p>Temperature: --°C</p>
+          <p>Humidity: --%</p>
+        </div>
+
+        <div id="day-5" class="weather-day">
+          <h5>FRIDAY</h5>
+          <img src="rainy.png" alt="Rainy" />
+          <p>Temperature: --°C</p>
+          <p>Humidity: --%</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      
+      const today = new Date();
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      document.getElementById("current-date").textContent =
+        today.toLocaleDateString("en-US", options);
+
+      
+      document.addEventListener("DOMContentLoaded", async function () {
+        const apiKey = "cc3ec58beaf643e6bd360138241908";
+        const cityName = "Iligan";
+        const apiEndpoint = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${cityName}&days=5`;
+
+        try {
+          console.log(`Fetching weather data from: ${apiEndpoint}`);
+          const response = await fetch(apiEndpoint);
+          const weatherData = await response.json();
+          console.log("Weather data received:", weatherData);
+
+          const forecastDays = weatherData.forecast.forecastday;
+
+          for (let i = 0; i < 5; i++) {
+            const dayElement = document.getElementById(`day-${i + 1}`);
+            const forecast = forecastDays[i];
+            const dayName = new Date(forecast.date).toLocaleDateString(
+              "en-US",
+              { weekday: "long" }
+            );
+            const temp = forecast.day.avgtemp_c;
+            const humidity = forecast.day.avghumidity;
+            const condition = forecast.day.condition.text;
+
+            
+            console.log(`Day ${i + 1}: ${dayName}`);
+            console.log(`Temperature: ${temp}°C`);
+            console.log(`Humidity: ${humidity}%`);
+            console.log(`Condition: ${condition}`);
+            console.log(`Icon URL: https:${forecast.day.condition.icon}`);
+
+
+            dayElement.querySelector("h1, h2, h3, h4, h5").textContent =
+              dayName.toUpperCase();
+            dayElement.querySelector(
+              "p:nth-of-type(1)"
+            ).textContent = `Temperature: ${temp}°C`;
+            dayElement.querySelector(
+              "p:nth-of-type(2)"
+            ).textContent = `Humidity: ${humidity}%`;
+
+            const conditionIcon = forecast.day.condition.icon;
+            dayElement.querySelector("img").src = `https:${conditionIcon}`;
+            dayElement.querySelector("img").alt = condition;
+          }
+        } catch (error) {
+          console.error("Error fetching weather data:", error);
+        }
+      });
+    </script>
+  </body>
+</html>

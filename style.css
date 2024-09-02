@@ -1,0 +1,95 @@
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: url("Weather image.jpg") no-repeat center center fixed;
+  background-size: cover;
+  color: black;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+header {
+  padding: 20px;
+  color: black;
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+
+.weather-info {
+  text-align: center;
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.weather-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.weather-day h1,
+.weather-day h2,
+.weather-day h3,
+.weather-day h4,
+.weather-day h5 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: black;
+  text-align: center;
+}
+
+.container img {
+  height: 100px;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  border-radius: 0 0 10px 10px;
+  margin-top: 20px;
+}
+
+footer p {
+  margin: 0;
+  font-size: 1em;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 10px;
+  }
+  header h1 {
+    font-size: 2em;
+  }
+  .weather-info {
+    flex-direction: column; /* Stack items vertically on small screens */
+  }
+  .weather-day {
+    margin: 10px 0; /* Reduce margin for smaller screens */
+  }
+  .weather-day h1,
+  .weather-day h2,
+  .weather-day h3,
+  .weather-day h4,
+  .weather-day h5 {
+    font-size: 1.5em;
+  }
+  footer p {
+    font-size: 0.9em;
+  }
+}
